@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          안녕 리액트
+          안녕 리액트...
         </a>
       </header>
     </div>
