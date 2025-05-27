@@ -1,11 +1,11 @@
 package com.example.demo.entity;
 
-import org.hibernate.annotations.UuidGenerator;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name = "shuttle")	//local database 에 생성해둔 테이블명과 동일히 입력할 것
 public class Bus {
 	@Id
-	@UuidGenerator
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, updatable = false)	//id, primary key
 	private int id;
 	private String bus_id;
