@@ -25,6 +25,7 @@ public class Bus {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, updatable = false)	//id, primary key
 	private int id;
+	@Column(name = "bus_id")
 	private String bus_id;
 	private int time;
 	private float lat;

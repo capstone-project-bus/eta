@@ -12,4 +12,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BusService {
 	private final BusRepo busRepo;
+
+	// public int getSeats(String busId){
+	// 	Bus bus = BusRepo.findById(busId);
+	// 	return 33 - bus.getPpl();
+	// }
 }

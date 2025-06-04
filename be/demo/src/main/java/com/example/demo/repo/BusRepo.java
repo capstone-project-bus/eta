@@ -9,7 +9,8 @@ import com.example.demo.entity.Bus;
 
 @Repository
 public interface BusRepo extends JpaRepository<Bus, Integer>{
-	Optional<Bus> findById(int id);
+	// Optional<Bus> findById(int id);
+	Bus findById(String busId);
 }
 
 /* 

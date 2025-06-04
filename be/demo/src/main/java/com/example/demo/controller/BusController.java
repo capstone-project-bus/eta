@@ -8,8 +8,13 @@ import com.example.demo.service.BusService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/bus")
+@RequestMapping("/api/bus")
 @RequiredArgsConstructor
 public class BusController {
 	private final BusService busService;
+
+	// @GetMapping("/seats/{busId}")
+	// public int getSeats(@PathVariable String busId){
+    //     return mqttService.getSeats(busId);
+    // }
 }
