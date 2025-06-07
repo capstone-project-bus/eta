@@ -1,20 +1,19 @@
 package com.example.demo.config;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
+import com.example.demo.comp.BusLocationHandler;
 import com.example.demo.payload.BusPayload;
-import com.example.demo.payload.GpsPayload;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.time.LocalDateTime;
 
 
 @Configuration
@@ -45,11 +44,10 @@ public class MqttConfig {
         return adapter;
     }
 
-
-
+    //MQTT 통해 받아온 msg parsing
     @Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")
-    public MessageHandler mqttMessageHandler(ObjectMapper objectMapper) {
+    public MessageHandler mqttMessageHandler(ObjectMapper objectMapper, BusLocationHandler busLocation) {
         return message -> {
             try {
                 String payload = message.getPayload().toString();
@@ -63,8 +61,19 @@ public class MqttConfig {
                     System.out.println("count: "+ busData.getCount());
 
                 } else if (receivedTopic.equals("esp32/gps")){
-                    GpsPayload gpsData = objectMapper.readValue(payload, GpsPayload.class);
-                    System.out.println("위치: "+ gpsData.getLat() + "," + gpsData.getLng());
+                	Map<String, Object> gpsData = objectMapper.readValue(payload, Map.class);
+                	
+                	Map<String, Object> location = busLocation.getLocation();
+                	location.put("lat", gpsData.get("LAT"));
+        			location.put("lng", gpsData.get("LONG"));
+        			location.put("date", gpsData.get("DATE"));
+        			location.put("time", gpsData.get("TIME"));	//time, UTC. 우리나라는 UTC+9 이므로 로직 짤 때 유의할 것
+        			
+        			System.out.println(location.get("date"));
+        			System.out.println(location.get("time"));
+        			System.out.println(location.get("lat"));
+        			System.out.println(location.get("lng"));
+        			System.out.println("----------------------------");
                 }
 
             } catch (Exception e) {

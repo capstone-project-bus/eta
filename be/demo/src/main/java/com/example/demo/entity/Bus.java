@@ -25,10 +25,11 @@ public class Bus {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, updatable = false)	//id, primary key
 	private int id;
-	@Column(name = "bus_id")
-	private String bus_id;
+	private String busId;
 	private int time;
-	private float lat;
-	private float lon;
+	private double lat;
+	private double lon;
 	private byte ppl;
+	
+	//필드명과 컬럼명이 같기에 @Column 으로 굳이 명시 안해도 적용됨. (예외, PK ~> 옵션 지정 위함)
 }
