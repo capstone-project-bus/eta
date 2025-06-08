@@ -16,6 +16,9 @@ import com.example.demo.service.BusService;
 
 import lombok.RequiredArgsConstructor;
 
+// 클라이언트 요청 처리 REST API 컨트롤러 
+// start 위치와 (gps module) 클라이언트(naver api)가 준 goal 위치를 이용해 ETA를 조회 (맞나여)
+
 @Controller
 @RequestMapping("/api/bus")
 @RequiredArgsConstructor

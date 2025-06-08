@@ -16,6 +16,9 @@ import com.example.demo.payload.BusPayload;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+// MQTT 메시지를 수신해서 처리
+// JSON -> Map -> (향후) DTO Class -> DB
+
 @Configuration
 public class MqttConfig {
 
@@ -56,9 +59,17 @@ public class MqttConfig {
                 // mqtt_receivedTopic: 스프링 Integration MQTT에서 자동으로 메시지에 붙여주는 헤더 키
                 String receivedTopic = message.getHeaders().get("mqtt_receivedTopic").toString();
                 if (receivedTopic.equals("esp32/ppl")) {
+                    // Map으로 수정 
+                    // JSON을 Map 형태로 파싱 
+                    // 사용 방법 ex. pplData.get("count") -> 12
+                    Map<String, Object> pplData = objectMapper.readValue(payload, Map.class);
+                   // location: lat, lng, time, ppl 등 저장하는 Map (맞져?)
+                    Map<String, Object> location = busLocation.getLocation();
+                    // count를 Map에 ppl이라는 이름으로 저장
+                    location.put("ppl", pplData.get("count"));
+                    // System.out.println(location.get("count"));
 
-                    BusPayload busData = objectMapper.readValue(payload, BusPayload.class);
-                    System.out.println("count: "+ busData.getCount());
+                    
 
                 } else if (receivedTopic.equals("esp32/gps")){
                 	Map<String, Object> gpsData = objectMapper.readValue(payload, Map.class);
