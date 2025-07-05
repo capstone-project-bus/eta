@@ -8,7 +8,7 @@ import com.example.demo.repo.BusRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-// 비즈니스 로직 담당 파일 
+// 비즈니스 로직 담당 파일 (버스 상태 관리)
 // getSeats: 향후 좌석 수 계산 
 // getLocation: 위치 정보를 가져옴 
 
