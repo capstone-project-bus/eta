@@ -25,3 +25,7 @@ replay_pid*
 /.metadata/
 /.metadata/
 /.vscode/
+
+# IDE 프로젝트 설정 무시
+.project
+.settings/
