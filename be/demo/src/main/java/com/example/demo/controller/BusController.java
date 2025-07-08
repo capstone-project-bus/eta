@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +35,7 @@ public class BusController {
 	
 	//naver directions 5 API 응답 body 받아옴
 	@GetMapping
-	public ResponseEntity<Map<String, Object>> getEta(@RequestParam(value="start") String start, @RequestParam(value="goal") String goal){
-		return ResponseEntity.ok(busService.getApi(start, goal));
+	public ResponseEntity<Map<String, Integer>> getEta(@RequestParam(value="start") String start, @RequestParam(value="goal") String goal, @RequestParam(value="waypoints") String waypoints){
+		return ResponseEntity.ok(busService.getApi(start, goal, waypoints));
 	}
 }
