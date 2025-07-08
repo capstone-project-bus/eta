@@ -5,21 +5,7 @@ import axios from "axios";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-          안녕 리액트...
-        </a>
-      </header>
+      <h2>셔틀 버스 (한양여자대학교)</h2>
     </div>
   );
 }
