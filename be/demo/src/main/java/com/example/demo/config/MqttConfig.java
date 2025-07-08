@@ -63,7 +63,7 @@ public class MqttConfig {
                     // JSON을 Map 형태로 파싱 
                     // 사용 방법 ex. pplData.get("count") -> 12
                     Map<String, Object> pplData = objectMapper.readValue(payload, Map.class);
-                   // location: lat, lng, time, ppl 등 저장하는 Map (맞져?)
+                    // location: lat, lng, time, ppl 등 저장하는 Map (맞져?)
                     Map<String, Object> location = busLocation.getLocation();
                     // count를 Map에 ppl이라는 이름으로 저장
                     location.put("ppl", pplData.get("count"));
