@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 // gps로부터 받은 lat, lng를 Map 객체에 임시로 저장해두는 파일 
 
 @Component
+@RequiredArgsConstructor
 public class BusLocationHandler {
 	//GPS로 부터 받아온 좌표값을 저장할 HashMap 인스턴스
-    private final Map<String, Object> location = new HashMap<>();
+    // private final Map<String, Object> location = new HashMap<>();
 
     //위 Map 인스턴스를 반환
     public Map<String, Object> getLocation() {
