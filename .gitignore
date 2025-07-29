@@ -29,3 +29,7 @@ replay_pid*
 # IDE 프로젝트 설정 무시
 .project
 .settings/
+
+
+# npm 설치 시 생기는 노드 모듈 
+node_modules/

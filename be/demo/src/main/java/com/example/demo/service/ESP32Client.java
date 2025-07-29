@@ -10,23 +10,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class ESP32Client {
 	
-	private MqttClient mqttClient;
-	
-	public ESP32Client(
-			@Value("${mqtt.url}") String mqttUrl,
-			@Value("${mqtt.client-id") String clientId
-			) throws MqttException{
-		this.mqttClient = new MqttClient(mqttUrl, clientId + "-sender", new MemoryPersistence());
-		mqttClient.connect();
-	}
-	
-	public void sendStartCommand(String busId) {
-        String topic = "bus/" + busId + "/sensor";
-        try {
-            MqttMessage message = new MqttMessage("START".getBytes());
-            mqttClient.publish(topic, message);
-        } catch (MqttException e) {
-            e.printStackTrace(); // 통신 오류 로깅
-        }
-    }
+//	private MqttClient mqttClient;
+//	
+//	public ESP32Client(
+//			@Value("${mqtt.url}") String mqttUrl,
+//			@Value("${mqtt.client-id") String clientId
+//			) throws MqttException{
+//		this.mqttClient = new MqttClient(mqttUrl, clientId + "-sender", new MemoryPersistence());
+//		mqttClient.connect();
+//	}
+//	
+//	public void sendStartCommand(String busId) {
+//        String topic = "bus/" + busId + "/sensor";
+//        try {
+//            MqttMessage message = new MqttMessage("START".getBytes());
+//            mqttClient.publish(topic, message);
+//        } catch (MqttException e) {
+//            e.printStackTrace(); // 통신 오류 로깅
+//        }
+//    }
 }
