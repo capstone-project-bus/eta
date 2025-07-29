@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;    
 import java.util.Map; 
 
+@Service
 public class StationArrivalService {
 	// 고정 역 좌표 (도착지)
 	private static final Map<String, List<Double>> STATION_COORDS = Map.of(
@@ -48,7 +49,8 @@ public class StationArrivalService {
 		// 도착이라 판단된 경우 수행되어야 할 과제: 적외선 센서 실행 
 		// HOW? esp32에 "적외선 센서 카운트 시작해라" 게시 
 		
-		esp32Client.sendStartCommand(busId); 
+		//esp32Client.sendStartCommand(busId); 
+		
 		// 통신과 서비스를 분리하기 위해 ESP32Client.java에 작성함
 		// MqttConfig > 수신용 
 		// ESP32Client > 전송용 

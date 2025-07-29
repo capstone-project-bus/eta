@@ -1,6 +1,8 @@
 package com.example.demo.comp;
 
 import java.util.HashMap;
+import lombok.RequiredArgsConstructor;
+
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BusLocationHandler {
 	//GPS로 부터 받아온 좌표값을 저장할 HashMap 인스턴스
-    // private final Map<String, Object> location = new HashMap<>();
+    private final Map<String, Object> location = new HashMap<>();
 
     //위 Map 인스턴스를 반환
     public Map<String, Object> getLocation() {
