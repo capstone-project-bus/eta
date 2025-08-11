@@ -67,7 +67,7 @@ public class MqttConfig {
                     Map<String, Object> location = busLocation.getLocation();
                     // count를 Map에 ppl이라는 이름으로 저장
                     location.put("ppl", pplData.get("count"));
-                    // System.out.println(location.get("count"));
+
 
                     
 
@@ -75,10 +75,10 @@ public class MqttConfig {
                 	Map<String, Object> gpsData = objectMapper.readValue(payload, Map.class);
                 	
                 	Map<String, Object> location = busLocation.getLocation();
-                	location.put("lat", gpsData.get("LAT"));
-        			location.put("lng", gpsData.get("LONG"));
-        			location.put("date", gpsData.get("DATE"));
-        			location.put("time", gpsData.get("TIME"));	//time, UTC. 우리나라는 UTC+9 이므로 로직 짤 때 유의할 것
+                	location.put("lat", gpsData.get("lat"));
+        			location.put("lng", gpsData.get("lng"));
+        			location.put("date", gpsData.get("date"));
+        			location.put("time", gpsData.get("time"));	//time, UTC. 우리나라는 UTC+9 이므로 로직 짤 때 유의할 것
         			
         			System.out.println(location.get("date"));
         			System.out.println(location.get("time"));
