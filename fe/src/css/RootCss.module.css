@@ -1,0 +1,22 @@
+.blocTabs {
+  display: flex;           /* 가로 배치 */
+  justify-content: center; /* 가운데 정렬 (옵션) */
+  border-bottom: 1px solid #eee;
+}
+
+.tabs {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #999;
+  font-weight: normal;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  font-size: smaller;
+
+}
+
+.activeTabs {
+  color: #000;
+  font-weight: bold;
+  border-bottom: 3px solid #ddd;
+}
