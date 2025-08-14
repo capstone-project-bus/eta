@@ -1,23 +1,17 @@
 package com.example.demo.service;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.comp.BusLocationHandler;
 import com.example.demo.repo.BusRepo;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -74,4 +68,14 @@ public class BusService {
 		
 		return res.getBody();
 	}
+	
+	private final RestTemplate restTemplate = new RestTemplate();
+
+//	  // Runs every 30 seconds
+//	@Scheduled(fixedRate = 10_000)
+//	public void callApiEveryMinute() {
+//	    String url = "http://localhost:8080/api/bus/test";
+//	    String response = restTemplate.getForObject(url, String.class);
+//	    System.out.println("API Response: " + response);
+//	}
 }

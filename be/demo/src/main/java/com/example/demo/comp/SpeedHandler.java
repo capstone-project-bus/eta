@@ -14,13 +14,14 @@ public class SpeedHandler {
 	RemainedDistance remainedDstc2 = new RemainedDistance();
 	
 	
-	public double getLiveEta(BusLocationHandler busLocation) {	
+	public double getLiveEta(String lng, String lat) {	
 		double movedDstc = 0.0;
 		double beforeTenSec = remainedDstc2.getRemainedDstc();
 		List<Double> speedsInAMin = remainedDstc2.getSpeedsInAMin();
 		
-		int currentLocation = distancehdlr.getIndex(busLocation.getLng(), busLocation.getLat()); //put gps data in params
-		int remainedDstc = distancehdlr.getDistance(currentLocation, busLocation.getLng(), busLocation.getLat());
+		int currentLocation = distancehdlr.getIndex(lng, lat); //put gps data in params
+		int remainedDstc = distancehdlr.getDistance(currentLocation);
+		
 		
 		double avgSpeed = 0;
 		
