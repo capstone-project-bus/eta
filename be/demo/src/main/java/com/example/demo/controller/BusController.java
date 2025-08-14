@@ -1,21 +1,15 @@
 package com.example.demo.controller;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import com.example.demo.comp.BusLocationHandler;
+import com.example.demo.comp.DistanceHandler;
+import com.example.demo.comp.SpeedHandler;
 import com.example.demo.service.BusService;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +21,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BusController {
 	private final BusService busService;
+	private final DistanceHandler distancehdlr;
+	private final SpeedHandler speedhdlr;
+	private final BusLocationHandler busLocation;
 
 	// @GetMapping("/seats/{busId}")
 	// public int getSeats(@PathVariable String busId){
@@ -35,7 +32,12 @@ public class BusController {
 	
 	//naver directions 5 API 응답 body 받아옴
 	@GetMapping
-	public ResponseEntity<Map<String, Integer>> getEta(@RequestParam(value="start") String start, @RequestParam(value="goal") String goal, @RequestParam(value="waypoints") String waypoints){
-		return ResponseEntity.ok(busService.getApi(start, goal, waypoints));
+	public ResponseEntity<String> getEta(@RequestParam(value="start") String start, @RequestParam(value="goal") String goal){
+		return ResponseEntity.ok(busService.getApi(start, goal));
+	}
+	
+	@GetMapping("/test")
+	public double test() {
+		return speedhdlr.getLiveEta(busLocation);
 	}
 }

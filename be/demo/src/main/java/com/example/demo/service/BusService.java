@@ -53,13 +53,13 @@ public class BusService {
     }
 	
 	//Naver Direction 5 API에 응답 Body 요청 로직
-	public Map<String, Integer> getApi(String start, String goal, String waypoints) {
+	public String getApi(String start, String goal) {
 //		String start = getLocation();
 //		System.out.println(start);
 		
 		String url = String.format(
-				"https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start=%s&goal=%s&waypoints=%s", 
-				start, goal, waypoints);
+				"https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start=%s&goal=%s", 
+				start, goal);
 		
 		URI uri = UriComponentsBuilder.fromUriString(url).build().toUri();
 		
@@ -72,77 +72,6 @@ public class BusService {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> res = restTemplate.exchange(req, String.class);
 		
-		System.out.println(parseApiData(res.getBody()));
-		System.out.println("----------------------");
-		return parseApiData(res.getBody());
-//		return res.getBody();
-	}
-	
-	//API로부터 받아온 Json 형태의 응답 body(String)를 Json으로 parsing 후, Map 객체에 파싱된 데이터 저장 로직
-	public Map<String, Integer> parseApiData(String respondBody){
-		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			JsonNode respondBodyJson = objectMapper.readTree(respondBody);
-			
-			JsonNode summary = respondBodyJson.path("route").path("traoptimal").get(0).path("summary");
-			JsonNode guide = respondBodyJson.path("route").path("traoptimal").get(0).path("guide");
-			
-	        Map<String, Object> parsedSummary = new HashMap<>();
-	        parsedSummary.put("distance", summary.path("distance").asInt());
-	        parsedSummary.put("duration", summary.path("duration").asInt());
-	        
-	        List<Map<String, Object>> parsedGuide = new ArrayList<>();
-	        for (JsonNode guideNode : guide) {
-	            Map<String, Object> guideItem = new HashMap<>();
-
-	            guideItem.put("instructions", guideNode.path("instructions").asText());
-	            
-	            // 선택적: 거리/시간 포함되어 있다면
-	            if (guideNode.has("distance")) {
-	                guideItem.put("distance", guideNode.path("distance").asInt());
-	            }
-	            if (guideNode.has("duration")) {
-	                guideItem.put("duration", guideNode.path("duration").asInt());
-	            }
-
-	            parsedGuide.add(guideItem);
-	        }
-	        
-	        Map<String, Integer> parsedData = new HashMap<>();
-	        
-	        int dis = 0, drt = 0, pointCheck = 0;
-	        
-	        for(int i = 0; i < parsedGuide.size(); i++) {
-	        	dis += (Integer)parsedGuide.get(i).get("distance");
-	        	drt += (Integer)parsedGuide.get(i).get("duration");
-	        	
-	        	if("경유지".equals(parsedGuide.get(i).get("instructions")) && pointCheck == 0) {
-	        		parsedData.put("sec1Distance", dis);
-	        		parsedData.put("sec1Duration", drt);
-	        		dis = 0;
-	        		drt = 0;
-	        		pointCheck++;
-	        		continue;
-	        	}
-	        	else if("경유지".equals(parsedGuide.get(i).get("instructions")) && pointCheck == 1) {
-	        		parsedData.put("sec2Distance", dis);
-	        		parsedData.put("sec2Duration", drt);
-	        		dis = 0;
-	        		drt = 0;
-	        		continue;
-	        	}
-	        	else if("목적지".equals(parsedGuide.get(i).get("instructions"))) {
-	        		parsedData.put("sec3Distance", dis);
-	        		parsedData.put("sec3Duration", drt);
-	        		break;
-	        	}
-	        }
-	        
-	        return parsedData;
-	        
-		}catch (Exception e) {
-			e.printStackTrace();
-			return Collections.emptyMap();
-		}
+		return res.getBody();
 	}
 }
