@@ -15,14 +15,14 @@ import lombok.RequiredArgsConstructor;
 public class DistanceHandler {
 	private final RouteHandler routeHandler;
 	
-	public int getIndex(String lng, String lat) {
+	public int getIndex(String Lng, String Lat) {
 		int index = 0;
 		try {
 			BusRoute busRoute = routeHandler.getRoute("testRoute.json");
 			List<Coordinate> route = busRoute.getRoute();
 			
-			double currentLng = Double.parseDouble(lng);
-			double currentLat = Double.parseDouble(lat);
+			double currentLng = Double.parseDouble(Lng);
+			double currentLat = Double.parseDouble(Lat);
 			
 			double routeLng, routeLat;
 			double minDstc = 0;
@@ -49,23 +49,21 @@ public class DistanceHandler {
 		return index;
 	}
 	
-	public int getDistance(int index, String lng, String lat) {
+	public int getDistance(int index) {
 		final int EARTH_RADIUS = 6371000;
 		int dstc = 0;
 		try {
 			BusRoute busRoute = routeHandler.getRoute("testRoute.json");
 			List<Coordinate> route = busRoute.getRoute();
 			
-			double currentLng = Double.parseDouble(lng);
-			double currentLat = Double.parseDouble(lat);
 			System.out.println(index);
 			
 			for(int i = index; i < (route.size()-1); i++) {
-				double dLng = Math.toRadians(route.get(i+1).getLng() - currentLng);
-				double dLat = Math.toRadians(route.get(i+1).getLat() - currentLat);
+				double dLng = Math.toRadians(route.get(i+1).getLng() - route.get(i).getLng());
+				double dLat = Math.toRadians(route.get(i+1).getLat() - route.get(i).getLat());
 				
 				double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-						   + Math.cos(Math.toRadians(currentLat)) * Math.cos(Math.toRadians(route.get(i+1).getLat()))
+						   + Math.cos(Math.toRadians(route.get(i).getLat())) * Math.cos(Math.toRadians(route.get(i+1).getLat()))
 						   * Math.sin(dLng / 2) * Math.sin(dLng / 2);
 				
 				double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
