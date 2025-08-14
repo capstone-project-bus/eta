@@ -11,12 +11,20 @@ import Refresh from './Component/Refresh';
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Root />
-      <div style={{maxWidth: 500, margin: '10px auto', padding: '5%', }}>
-          <Ai />
+      <div className="app-wrapper">
+      <div className="mockup">
+        <div className="mockup-inner">
+          {/* 콘텐츠 자리 */} 
+          <Header/>
+          <Root />
+              <div style={{maxWidth: '100%', margin: '10px auto', padding: '5%'}}>
+                <Ai />
+              </div>
+          <Refresh />
+        </div>
       </div>
-      <Refresh />
+    </div>
+     
     </div>
   );
 }
