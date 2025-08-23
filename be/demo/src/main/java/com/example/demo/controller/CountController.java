@@ -18,7 +18,7 @@ public class CountController {
 	private final BusLocationHandler busLocation;
 	
 	@GetMapping("/api/count")
-	public int getCurrentCOunt() {
+	public int getCurrentCount() {
 		Map<String, Object> location = busLocation.getLocation();
 		Object count = location.get("ppl");
 		return count != null ? (int)count : 0;

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.net.URI;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
@@ -17,8 +19,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 // 비즈니스 로직 담당 파일 (버스 상태 관리)
-// getSeats: 향후 좌석 수 계산 
-// getLocation: 위치 정보를 가져옴 
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -78,4 +78,31 @@ public class BusService {
 //	    String response = restTemplate.getForObject(url, String.class);
 //	    System.out.println("API Response: " + response);
 //	}
+	
+	
+	// config 센서 데이터 처리
+	private final Map<Long, Map<String, Object>> cache = new ConcurrentHashMap<>();
+	public void updateLocation(Long busId, Map<String, Object> location) {
+	    System.out.println("busId=" + busId + " data=" + location);
+
+		cache.put(busId, location);
+	}
+	public Integer getCount(Long busId) {
+	    Map<String, Object> location = cache.get(busId);
+	    
+	    if (location == null) return null;
+
+	    Object val = location.get("ppl");
+	    if (val == null) return null;
+
+	    // 숫자가 Double/String/Integer 어떤 타입이든 안전하게 변환
+	    if (val instanceof Number) {
+	        return ((Number) val).intValue();   
+	    } else {
+	        return Integer.parseInt(val.toString());
+	        
+	    }
+	}
+
+
 }
