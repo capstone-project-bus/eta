@@ -22,13 +22,8 @@ import lombok.RequiredArgsConstructor;
 
 public class BusController {
 	private final BusService busService;
-	private final DistanceHandler distancehdlr;
 	private final SpeedHandler speedhdlr;
 	private final BusLocationHandler busLocation;
-
-
-        
-       
 	
 	//naver directions 5 API 응답 body 받아옴
 	@GetMapping
@@ -36,13 +31,13 @@ public class BusController {
 		return ResponseEntity.ok(busService.getApi(start, goal));
 	}
 	
-//	@GetMapping("/test")
-//	public double test() {
-//		String lng = busLocation.getLng();
-//        String lat = busLocation.getLat();
-//		return speedhdlr.getLiveEta(lng, lat);
-//	}
-	
+	//실시간 Gps 위치를 받아 도착지까지의 ETA를 초 단위로 리턴 (스케줄러 구현 필요)
+	@GetMapping("/test")
+	public double test() {
+		String lng = busLocation.getLng();
+        String lat = busLocation.getLat();
+		return speedhdlr.getLiveEta(lng, lat);
+	}
 	
 	// BusService로부터 cofig의 count 값을 받아 fe로 리턴 
 	@GetMapping("/bus/{id}/count")
