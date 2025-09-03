@@ -26,8 +26,8 @@ const Root = () => {
   }, []);
 
   const stationMap = {
-    0: { text: "마장역", color: "#A05EB5", line: "5" },
-    1: { text: "한양대역", color: "#00B140", line: "2" },
+    0: { text: "한양대역", color: "#00B140", line: "2"},
+    1: { text: "마장역", color: "#A05EB5", line: "5" },
     2: { text: "왕십리역", color:"#77C4A3", line: "" },
     3: { text: "학교", color:"yellow", line: "" },
     4: { text: "", color: "", line: ""}
@@ -40,9 +40,9 @@ const Root = () => {
 
   // eta 임시 demo ---------------------------------------------------------
   const stationEtas = {
-  0: "3분",
-  1: "8분",
-  2: "12분",
+  0: 3,
+  1: 8,
+  2: 12,
   3: null,   // 아직 도착정보 없음
   4: ""      // 공백 테스트~~ 
 };
@@ -76,7 +76,7 @@ const Root = () => {
 
       <div style={{maxWidth: '100%', margin: '10px auto', padding: '5%'}}>
                 <Ai />
-              </div>
+      </div>
       {/* 새로고침 버튼 */}
       <RefreshButton onRefresh={fetchData} />
     </div>

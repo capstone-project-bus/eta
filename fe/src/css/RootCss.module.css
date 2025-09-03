@@ -1,7 +1,7 @@
 .blocTabs {
   display: flex;           /* 가로 배치 */
-  justify-content: center; /* 가운데 정렬 */
-  gap: 20px; /* 블록 간 사이 간격 css ㄷㄷ 이런 게 있네 */
+  justify-content: space-evenly; /* 가운데 정렬 */
+  /* gap: 30px; 블록 간 사이 간격 css ㄷㄷ 이런 게 있네 ㄷㄷ그러게 뭐냐 첨 봄 */
 }
 
 .tabs {
@@ -11,7 +11,7 @@
   font-weight: normal;
   border-bottom: 3px solid transparent;
   transition: all 0.3s ease;
-  font-size: smaller;
+  font-size: 17px;  /* ios default font size는 17pt, android는 16-20pt 사이 권장 */
   margin-right: 2vw;
 }
 
@@ -23,7 +23,7 @@
 }
 .refreshButton {
   position: fixed;   /* 화면 기준 고정 */
-  bottom: 1.5rem;    /* 하단에서 1.5rem */
+  bottom: 4rem;    /* 하단에서 4rem */
   right: 1.5rem;     /* 오른쪽에서 1.5rem */
   z-index: 1000;
   background-color: #333;

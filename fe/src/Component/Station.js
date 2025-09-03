@@ -40,7 +40,8 @@ const Station = ({ stations = [], eta = {}, count }) => {
                 style={{
                   display: "inline-block",
                   marginLeft: "5px",
-                  fontSize: "clamp(0.8rem, 1.1vw + 0.3rem, 1rem)",
+                  // fontSize: "clamp(0.8rem, 1.1vw + 0.3rem, 1rem)",
+                  fontSize: "15px",
                   fontWeight: "bold"
                 }}
               >
@@ -58,7 +59,8 @@ const Station = ({ stations = [], eta = {}, count }) => {
                 marginTop: "0.25rem"
               }}
             >
-              <div style={{ fontSize: "0.9em", opacity: 0.9 }}>
+              {/* <div style={{ fontSize: "0.9em", opacity: 0.9 }}> */}
+              <div style={{ fontSize: "15px", color: "#f41a1a", fontWeight: "bold" }}>
                 {etaValue || " "}
               </div>
               <div
