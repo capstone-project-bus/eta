@@ -7,12 +7,12 @@ const statusMap = {
 };
 
 const Station = ({ stations = [], eta = {}, count }) => {
-  const status = statusMap[count] ?? { text: "-", color: "gray" };
+  const status = statusMap[count] ?? { text: "⋯", color: "gray" };
 
   const baseFont = "clamp(0.75rem, 1.2vw + 0.2rem, 1rem)";
 
   return (
-    <div style={{ padding: "3%", fontSize: baseFont }}>
+    <div style={{ padding: "3%", fontSize: baseFont, marginLeft: "2.2rem", marginTop: "1.5rem" }}>
       {stations.map((s, idx) => {
         const etaValue = eta[idx];
         const isWangsimni = s.text === "왕십리역"; // 왕십리만 marginBottom 크게

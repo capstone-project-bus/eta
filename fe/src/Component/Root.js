@@ -28,8 +28,8 @@ const Root = () => {
   const stationMap = {
     0: { text: "한양대역", color: "#00B140", line: "2"},
     1: { text: "마장역", color: "#A05EB5", line: "5" },
-    2: { text: "왕십리역", color:"#77C4A3", line: "" },
-    3: { text: "학교", color:"yellow", line: "" },
+    2: { text: "왕십리역", color:"#77C4A3", line: "왕" },
+    3: { text: "학교", color:"", line: "📍" },
     4: { text: "", color: "", line: ""}
   };
 
