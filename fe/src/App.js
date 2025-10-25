@@ -10,9 +10,10 @@ function App() {
       <div className="mockup">
         <div className="mockup-inner">
           {/* 콘텐츠 자리 */} 
-          <Header/>
-          <Root />
-              
+          <div className="contents">
+            <Header/>
+            <Root />
+          </div> 
         </div>
       </div>
     </div>
