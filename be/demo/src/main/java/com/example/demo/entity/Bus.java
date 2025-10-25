@@ -19,17 +19,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT) //null 값이면 JSON 형태의 데이터로 파싱되지 않음. dev tool에서 null값도 확인하고 싶다면 해당 줄 주석처리 요망.
-@Table(name = "shuttle")	//local database 에 생성해둔 테이블명과 동일히 입력할 것
+@Table(name = "businfo")	//버스 정보 테이블명입니다 
 public class Bus {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, updatable = false)	//id, primary key
-	private int id;
-	private String busId;
-	private int time;
-	private double lat;
-	private double lon;
-	private byte ppl;
+	@Column(name="bus_num", length=50) // varchar(50) pk
+	private String busNum;
 	
-	//필드명과 컬럼명이 같기에 @Column 으로 굳이 명시 안해도 적용됨. (예외, PK ~> 옵션 지정 위함)
+	@Column(name="bus_root", length=50) // varchar(50)
+	private String busRoot;
+	
 }
