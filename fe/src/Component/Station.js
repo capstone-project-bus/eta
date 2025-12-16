@@ -6,7 +6,7 @@ const statusMap = {
   2: { text: "혼잡", color: "red" }
 };
 
-const Station = ({ stations = [], eta = {}, count }) => {
+const Station = ({ stations = [], eta, count }) => {
   const status = statusMap[count] ?? { text: "⋯", color: "gray" };
 
   const baseFont = "clamp(0.75rem, 1.2vw + 0.2rem, 1rem)";
@@ -14,7 +14,7 @@ const Station = ({ stations = [], eta = {}, count }) => {
   return (
     <div style={{ padding: "3%", fontSize: baseFont, marginLeft: "2.2rem", marginTop: "1.5rem" }}>
       {stations.map((s, idx) => {
-        const etaValue = eta[idx];
+        const etaValue = eta + "분";
         const isWangsimni = s.text === "왕십리역"; // 왕십리만 marginBottom 크게
 
         return (
@@ -61,7 +61,7 @@ const Station = ({ stations = [], eta = {}, count }) => {
             >
               {/* <div style={{ fontSize: "0.9em", opacity: 0.9 }}> */}
               <div style={{ fontSize: "15px", color: "#f41a1a", fontWeight: "bold" }}>
-                {etaValue || " "}
+                {etaValue}
               </div>
               <div
                 style={{
