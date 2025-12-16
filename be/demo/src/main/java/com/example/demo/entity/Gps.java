@@ -17,10 +17,10 @@ public class Gps {
 	    private String busNum;
 
 	    @Column(name = "lan")
-	    private Character lan;
+	    private double lan;
 
 	    @Column(name = "lng") 
-	    private Character lng;
+	    private double lng;
 	    
 	    @Id
 	    @Column(name="time")

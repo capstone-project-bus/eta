@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.demo.payload.BusRoute;
-import com.example.demo.payload.Coordinate;
+import com.example.demo.payload.eta.BusRoute;
+import com.example.demo.payload.eta.Coordinate;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,40 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DistanceHandler {
 	private final RouteHandler routeHandler;
-	
-	public int getIndex(String Lng, String Lat) {
-		int index = 0;
-		try {
-			BusRoute busRoute = routeHandler.getRoute("testRoute.json");
-			List<Coordinate> route = busRoute.getRoute();
-			
-			double currentLng = Double.parseDouble(Lng);
-			double currentLat = Double.parseDouble(Lat);
-			
-			double routeLng, routeLat;
-			double minDstc = 0;
-			for(int i = 0; i < route.size(); i++) {
-				routeLng = route.get(i).getLng();
-				routeLat = route.get(i).getLat();
-				
-				double dstc = Math.sqrt(Math.pow((routeLng - currentLng), 2) + Math.pow((routeLat - currentLat), 2));
-				
-				if(i == 0) {
-					minDstc = dstc;
-					continue;
-				}
-				
-				if(dstc < minDstc) {
-					minDstc = dstc;
-					index = i;
-				}
-				else continue;
-			}
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-		return index;
-	}
 	
 	public int getDistance(int index) {
 		final int EARTH_RADIUS = 6371000;

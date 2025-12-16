@@ -34,4 +34,8 @@ public class BusLocationHandler {
     public String getPpl(){
         return location.getOrDefault("ppl", "0").toString();
     }
+    
+    public String getBusId(){
+        return location.getOrDefault("busId", "0").toString();
+    }
 }

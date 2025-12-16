@@ -1,4 +1,4 @@
-package com.example.demo.payload;
+package com.example.demo.payload.eta;
 
 import java.util.List;
 
