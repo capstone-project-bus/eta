@@ -20,6 +20,23 @@ const Root = () => {
     }
   };
 
+  const [eta, setEta] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/test')
+      .then(response => response.json()) // Spring returns a double, which is valid JSON
+      .then(data => {
+        setEta(data);
+        setLoading(false);
+        console.log('Fetched ETA:', data);
+      })
+      .catch(error => {
+        console.error('Error fetching ETA:', error);
+        setLoading(false);
+      });
+  }, []);
+
   // 페이지 로드 시 데이터 불러오기
   useEffect(() => {
     fetchData();
@@ -71,7 +88,7 @@ const Root = () => {
       
 
       {/* 데이터 전달 */}
-      <Station stations={stationToShow} count={count} eta={stationEtas} />
+      <Station stations={stationToShow} count={count} eta={eta} />
 
 
       <div style={{maxWidth: '100%', margin: '10px auto', padding: '5%'}}>
