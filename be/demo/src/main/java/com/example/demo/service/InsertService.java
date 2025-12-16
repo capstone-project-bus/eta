@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.Gps;
 import com.example.demo.entity.Sensor;
 import com.example.demo.repo.BusRepo;
 import com.example.demo.repo.GpsRepository;
@@ -28,5 +29,14 @@ public class InsertService {
 		
 		//sensorRepository.save(sensor);
 		
+	}
+	
+	public void addGps(String busNum, double lat, double lng, LocalDateTime time) {
+		Gps gps = new Gps();
+		gps.setBusNum(busNum);
+		gps.setLan(lat);
+		gps.setLng(lng);
+		gps.setTime(time);
+		gpsRepository.save(gps);
 	}
 }

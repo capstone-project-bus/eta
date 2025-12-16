@@ -3,7 +3,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.demo.payload.RemainedDistance;
+import com.example.demo.payload.EtaPayload;
+import com.example.demo.payload.eta.RemainedDistance;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,22 +12,46 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SpeedHandler {
 	private final DistanceHandler distancehdlr;
-	private final RemainedDistance remainedDstc2;
+	private final RouteHandler routeHdlr;
 	
-	public double getLiveEta(String lng, String lat) {	
+	private final EtaPayload etaPayload;
+	//private final RemainedDistance remainedDstc2; //171225, 주석처리
+	
+	public double getLiveEta(String busNum, String lng, String lat) {	
 		double movedDstc = 0.0;
-		double beforeTenSec = remainedDstc2.getRemainedDstc();
-		List<Double> speedsInAMin = remainedDstc2.getSpeedsInAMin();
+		RemainedDistance remainedDstc2;
+		double beforeTenSec;
+		List<Double> speedsInAMin;
 		
-		int currentLocation = distancehdlr.getIndex(lng, lat); //put gps data in params
-		int remainedDstc = distancehdlr.getDistance(currentLocation);
+		if(etaPayload.isTherePrevInfo(busNum)) {
+			remainedDstc2 = etaPayload.getPreviousBusInfo(busNum);
+			beforeTenSec = remainedDstc2.getRemainedDstc();
+			speedsInAMin = remainedDstc2.getSpeedsInAMin();
+		}
+		else {
+			remainedDstc2 = new RemainedDistance();
+			beforeTenSec = 0;
+			speedsInAMin = remainedDstc2.getSpeedsInAMin();
+		}
+		//double beforeTenSec = remainedDstc2.getRemainedDstc();
+		//List<Double> speedsInAMin = remainedDstc2.getSpeedsInAMin();
+		
+		//coord[] : {current location, next waypoint} (if next waypoint == destination, it's 0)
+		int[] coord = routeHdlr.getIndex(lng, lat); //put gps data in params
+		int remainedDstc = distancehdlr.getDistance(coord[0]);
+		if(coord[1] != 0) {
+			remainedDstc += distancehdlr.getDistance(coord[1]);
+		}
+		//For now, just adding up but next time I should divide it (251025)
+		//or just subtract the eta from the whole remained eta
 		
 		System.out.println("test : " + beforeTenSec + ", " + remainedDstc);
 		
-		if(beforeTenSec == 0) {		//출발지에서 출발(초기값 세팅)
+		if(speedsInAMin.isEmpty()) {		//출발지에서 출발(초기값 세팅)
 			remainedDstc2.setRemainedDstc(remainedDstc);
 			System.out.println("ETA(m/s, if) : " + remainedDstc / (15 * 1000 / 3600.0));
 			remainedDstc2.setEta(remainedDstc / (15 * 1000 / 3600.0));
+			etaPayload.updateBusInfo(busNum, remainedDstc2);
 			return remainedDstc2.getEta();
 		}
 		else {	//운행 중 eta 값 계산
@@ -38,6 +63,7 @@ public class SpeedHandler {
 				remainedDstc2.setRemainedDstc(remainedDstc);
 				System.out.println("ETA(m/s, stuck) : " + (remainedDstc2.getEta() + 10.0));
 				remainedDstc2.setEta(remainedDstc2.getEta() + 10.0);
+				etaPayload.updateBusInfo(busNum, remainedDstc2);
 				return remainedDstc2.getEta();
 			}
 			
@@ -60,6 +86,7 @@ public class SpeedHandler {
 				System.out.println("avg : " + avgSpeed);
 				System.out.println("ETA(m/s, underAvg) : " + remainedDstc / avgSpeed);
 				remainedDstc2.setEta(remainedDstc / avgSpeed);
+				etaPayload.updateBusInfo(busNum, remainedDstc2);
 				return remainedDstc2.getEta();
 			}
 			
@@ -75,11 +102,13 @@ public class SpeedHandler {
 				System.out.println("avg(end) : " + avgSpeed);
 				System.out.println("ETA(m/s, avg) : " + remainedDstc / avgSpeed);
 				remainedDstc2.setEta(remainedDstc / avgSpeed);
+				etaPayload.updateBusInfo(busNum, remainedDstc2);
 				return remainedDstc2.getEta();
 			}
 			
 			System.out.println("Somehow I reached here");
 			remainedDstc2.setEta(remainedDstc / (movedDstc / 10.0));
+			etaPayload.updateBusInfo(busNum, remainedDstc2);
 			return remainedDstc2.getEta();
 		}
 	}

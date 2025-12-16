@@ -9,7 +9,7 @@ import com.example.demo.entity.Gps;
 import com.example.demo.entity.Sensor;
 
 public interface GpsRepository extends JpaRepository<Gps, LocalDateTime> {
-	Optional<Sensor> findTopByBusNumOrderByTimeDesc(LocalDateTime time);
+	Optional<Sensor> findTopByBusNumOrderByTimeDesc(String busNum);
 
 	
 }

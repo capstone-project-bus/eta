@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Bus;
 
 @Repository
-public interface BusRepo extends JpaRepository<Bus, Integer>{
+public interface BusRepo extends JpaRepository<Bus, String>{
 }
 
 /* 

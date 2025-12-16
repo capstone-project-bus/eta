@@ -12,15 +12,11 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
 import com.example.demo.comp.BusLocationHandler;
-import com.example.demo.payload.BusPayload;
 import com.example.demo.service.BusService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
-import com.example.demo.service.BusService;
-
-import com.example.demo.service.BusService;
 
 // MQTT 메시지를 수신해서 처리
 // JSON(esp32) -> Map(config) -> DTO Class(payload) -> DB(entity)
@@ -90,12 +86,14 @@ public class MqttConfig {
                 	
                 	Map<String, Object> gpsData = objectMapper.readValue(payload, Map.class);
                 	Map<String, Object> location = busLocation.getLocation();
-                      	
+                    
+                	location.put("busId", gpsData.get("busId"));
                 	location.put("lat", gpsData.get("lat"));
         			location.put("lng", gpsData.get("lng"));
         			location.put("date", gpsData.get("date"));
         			location.put("time", gpsData.get("time"));	//time, UTC. 우리나라는 UTC+9 이므로 로직 짤 때 유의할 것
         			
+        			System.out.println(location.get("busId"));
         			System.out.println(location.get("date"));
         			System.out.println(location.get("time"));
         			System.out.println(location.get("lat"));

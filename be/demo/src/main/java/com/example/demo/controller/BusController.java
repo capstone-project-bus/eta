@@ -31,12 +31,13 @@ public class BusController {
 		return ResponseEntity.ok(busService.getApi(start, goal));
 	}
 	
-	//실시간 Gps 위치를 받아 도착지까지의 ETA를 초 단위로 리턴 (스케줄러 구현 필요)
+	//실시간 Gps 위치를 받아 도착지까지의 ETA를 초 단위로 리턴 => 프론트 측에서 새로고침하여 요청하기
 	@GetMapping("/test")
 	public double test() {
+		String busId = busLocation.getBusId();
 		String lng = busLocation.getLng();
         String lat = busLocation.getLat();
-		return speedhdlr.getLiveEta(lng, lat);
+		return speedhdlr.getLiveEta(busId, lng, lat);
 	}
 	
 	// BusService로부터 cofig의 count 값을 받아 fe로 리턴 
